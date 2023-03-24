@@ -19,7 +19,10 @@ package com.example.android.codelabs.paging
 import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.android.codelabs.paging.api.GithubService
+import com.example.android.codelabs.paging.api.RickAndMortyService
 import com.example.android.codelabs.paging.data.GithubRepository
+import com.example.android.codelabs.paging.data.LocationsRepository
+import com.example.android.codelabs.paging.ui.LocationViewModelFactory
 import com.example.android.codelabs.paging.ui.ViewModelFactory
 
 /**
@@ -43,5 +46,15 @@ object Injection {
      */
     fun provideViewModelFactory(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
         return ViewModelFactory(owner, provideGithubRepository())
+    }
+
+    //-----------------------------------------------------------------------------------------
+
+    private fun provideLocationsRepository(): LocationsRepository {
+        return LocationsRepository(RickAndMortyService.create())
+    }
+
+    fun provideLocationViewModelFactory(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
+        return LocationViewModelFactory(owner, provideLocationsRepository())
     }
 }
