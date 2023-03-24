@@ -20,12 +20,8 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.android.codelabs.paging.data.GithubRepository
 import com.example.android.codelabs.paging.data.LocationsRepository
 
-/**
- * Factory for ViewModels
- */
 class LocationViewModelFactory(
     owner: SavedStateRegistryOwner,
     private val repository: LocationsRepository

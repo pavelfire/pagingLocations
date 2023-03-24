@@ -17,7 +17,6 @@
 package com.example.android.codelabs.paging.ui
 
 import androidx.lifecycle.*
-import com.example.android.codelabs.paging.data.GithubRepository
 import com.example.android.codelabs.paging.data.LocationsRepository
 import com.example.android.codelabs.paging.model.LocatResult
 import com.example.android.codelabs.paging.model.location.LocationsParams
@@ -25,23 +24,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
-/**
- * ViewModel for the [SearchRepositoriesActivity] screen.
- * The ViewModel works with the [GithubRepository] to get the data.
- */
 class LocationsViewModel(
     private val repository: LocationsRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    /**
-     * Stream of immutable states representative of the UI.
-     */
     val state: LiveData<UiStateLocat>
 
-    /**
-     * Processor of side effects from the UI which in turn feedback into [state]
-     */
     val accept: (UiActionLocat) -> Unit
 
     init {

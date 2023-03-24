@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2018 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.android.codelabs.paging.ui
 
 import android.os.Bundle
@@ -43,27 +27,20 @@ class LocationsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        // get the view model
         val viewModel = ViewModelProvider(this, Injection.provideLocationViewModelFactory(owner = this))
             .get(LocationsViewModel::class.java)
 
-        // add dividers between RecyclerView's row items
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         binding.list.addItemDecoration(decoration)
 
         binding.list.layoutManager = GridLayoutManager(applicationContext, 2)
 
-        // bind the state
         binding.bindStateLocat(
             uiState = viewModel.state,
             uiActions = viewModel.accept
         )
     }
 
-    /**
-     * Binds the [UiState] provided  by the [SearchRepositoriesViewModel] to the UI,
-     * and allows the UI to feed back user actions to it.
-     */
     private fun ActivityLocationsBinding.bindStateLocat(
         uiState: LiveData<UiStateLocat>,
         uiActions: (UiActionLocat) -> Unit

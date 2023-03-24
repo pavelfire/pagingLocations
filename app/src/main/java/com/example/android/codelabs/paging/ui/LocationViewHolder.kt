@@ -24,12 +24,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.codelabs.paging.R
-import com.example.android.codelabs.paging.model.Repo
 import com.example.android.codelabs.paging.model.location.LocationDTO
 
-/**
- * View Holder for a [Repo] RecyclerView list item.
- */
 class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val name: TextView = view.findViewById(R.id.repo_name)
     private val description: TextView = view.findViewById(R.id.repo_description)
