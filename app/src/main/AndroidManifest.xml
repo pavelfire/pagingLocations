@@ -29,14 +29,18 @@
             android:name="com.example.android.codelabs.paging.ui.SearchRepositoriesActivity"
             android:exported="true">
 
-        </activity>
-        <activity
-            android:name="com.example.android.codelabs.paging.ui.LocationsActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name="com.example.android.codelabs.paging.ui.LocationsActivity"
+            android:exported="true">
+
+
+
         </activity>
     </application>
 
