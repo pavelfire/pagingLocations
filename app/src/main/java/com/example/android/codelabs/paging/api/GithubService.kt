@@ -24,6 +24,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+//https://developer.android.com/codelabs/android-paging#0
+
 const val IN_QUALIFIER = "in:name,description"
 
 /**
