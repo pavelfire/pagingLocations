@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.repo
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
