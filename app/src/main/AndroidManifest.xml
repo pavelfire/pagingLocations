@@ -25,21 +25,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name="com.example.android.codelabs.paging.ui.repo.SearchRepositoriesActivity"
+            android:name="com.example.android.codelabs.paging.ui.location.LocationsActivity"
             android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
-        </activity>
-        <activity
-            android:name="com.example.android.codelabs.paging.ui.location.LocationsActivity"
-            android:exported="true">
-
-
 
         </activity>
     </application>

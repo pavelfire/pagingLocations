@@ -19,34 +19,12 @@ package com.example.android.codelabs.paging
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.RickAndMortyService
-import com.example.android.codelabs.paging.data.GithubRepository
 import com.example.android.codelabs.paging.data.LocationsRepository
 import com.example.android.codelabs.paging.data.db.LocationsDatabase
-import com.example.android.codelabs.paging.data.db.RepoDatabase
 import com.example.android.codelabs.paging.ui.location.LocationViewModelFactory
-import com.example.android.codelabs.paging.ui.repo.ViewModelFactory
 
-/**
- * Class that handles object creation.
- * Like this, objects can be passed as parameters in the constructors and then replaced for
- * testing, where needed.
- */
 object Injection {
-
-    private fun provideGithubRepository(context: Context): GithubRepository {
-        return GithubRepository(GithubService.create(), RepoDatabase.getInstance(context))
-    }
-
-    fun provideViewModelFactory(
-        context: Context,
-        owner: SavedStateRegistryOwner
-    ): ViewModelProvider.Factory {
-        return ViewModelFactory(owner, provideGithubRepository(context))
-    }
-
-    //-----------------------------------------------------------------------------------------
 
     private fun provideLocationsRepository(context: Context): LocationsRepository {
         return LocationsRepository(

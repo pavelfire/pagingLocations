@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.databinding.ReposLoadStateFooterViewItemBinding
 
-class LocatonsLoadStateViewHolder(
+class LocationsLoadStateViewHolder(
     private val binding: ReposLoadStateFooterViewItemBinding,
     retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
@@ -27,11 +27,11 @@ class LocatonsLoadStateViewHolder(
     }
 
     companion object {
-        fun create(parent: ViewGroup, retry: () -> Unit): LocatonsLoadStateViewHolder {
+        fun create(parent: ViewGroup, retry: () -> Unit): LocationsLoadStateViewHolder {
             val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.repos_load_state_footer_view_item, parent, false)
             val binding = ReposLoadStateFooterViewItemBinding.bind(view)
-            return LocatonsLoadStateViewHolder(binding, retry)
+            return LocationsLoadStateViewHolder(binding, retry)
         }
     }
 }

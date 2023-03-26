@@ -24,13 +24,11 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.example.android.codelabs.paging.data.LocationsRepository
 import com.example.android.codelabs.paging.model.location.LocationEntity
-import com.example.android.codelabs.paging.ui.repo.UiAction
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 private const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"
 private const val LAST_SEARCH_QUERY: String = "last_search_query"
-private const val VISIBLE_THRESHOLD = 5
 private const val DEFAULT_QUERY = ""
 
 class LocationsViewModel(
@@ -50,11 +48,11 @@ class LocationsViewModel(
         val lastQueryScrolled: String = savedStateHandle.get(LAST_QUERY_SCROLLED) ?: DEFAULT_QUERY
         val actionStateFlow = MutableSharedFlow<UiActionLocat>()
         val searches = actionStateFlow
-            .filterIsInstance<UiAction.Search>()
+            .filterIsInstance<UiActionLocat.Search>()
             .distinctUntilChanged()
-            .onStart { emit(UiAction.Search(query = initialQuery)) }
+            .onStart { emit(UiActionLocat.Search(query = initialQuery)) }
         val queriesScrolled = actionStateFlow
-            .filterIsInstance<UiAction.Scroll>()
+            .filterIsInstance<UiActionLocat.Scroll>()
             .distinctUntilChanged()
             // This is shared to keep the flow "hot" while caching the last query scrolled,
             // otherwise each flatMapLatest invocation would lose the last query scrolled,
@@ -63,7 +61,7 @@ class LocationsViewModel(
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
                 replay = 1
             )
-            .onStart { emit(UiAction.Scroll(currentQuery = lastQueryScrolled)) }
+            .onStart { emit(UiActionLocat.Scroll(currentQuery = lastQueryScrolled)) }
 
         pagingDataFlow = searches
             .flatMapLatest { searchLocations(queryString = it.query) }
