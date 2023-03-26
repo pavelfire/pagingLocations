@@ -1,7 +1,6 @@
 package com.example.android.codelabs.paging.data
 
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState.Loading.endOfPaginationReached
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -14,7 +13,6 @@ import com.example.android.codelabs.paging.model.location.mapToEntity
 import retrofit2.HttpException
 import java.io.IOException
 
-// GitHub page API is 1 based: https://developer.github.com/v3/#pagination
 private const val STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
@@ -24,60 +22,36 @@ class LocationsRemoteMediator(
     private val locationsDatabase: LocationsDatabase
 ) : RemoteMediator<Int, LocationEntity>() {
 
+    private var pageIndex = 0
+
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, LocationEntity>
     ): MediatorResult {
-        val page = when (loadType) {
-            LoadType.REFRESH -> {
-                val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: STARTING_PAGE_INDEX
-            }
-            LoadType.PREPEND -> {
-                return MediatorResult.Success(endOfPaginationReached = true)
-//                val remoteKeys = getRemoteKeyForFirstItem(state)
-//                // If remoteKeys is null, that means the refresh result is not in the database yet.
-//                val prevKey = remoteKeys?.prevKey
-//                if (prevKey == null) {
-//                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-//                }
-//                prevKey
-            }
-            LoadType.APPEND -> {
-                val remoteKeys = getRemoteKeyForLastItem(state)
-                // If remoteKeys is null, that means the refresh result is not in the database yet.
-                // We can return Success with endOfPaginationReached = false because Paging
-                // will call this method again if RemoteKeys becomes non-null.
-                // If remoteKeys is NOT NULL but its nextKey is null, that means we've reached
-                // the end of pagination for append.
-                val nextKey = remoteKeys?.nextKey
-                if (nextKey == null) {
-                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                }
-                nextKey
-            }
-        }
-        val apiQuery = query //+ IN_QUALIFIER
+
+        pageIndex =
+            getPageIndex(loadType) ?: return MediatorResult.Success(endOfPaginationReached = true)
+
+        val apiQuery = query
 
         try {
             val apiResponse = service.searchLocations(
                 name = apiQuery,
                 type = "",
                 dimension = "",
-                page = page,
+                page = pageIndex,
             )
-            //.searchRepos(apiQuery, page, state.config.pageSize)
 
             val locations = apiResponse.results
-            val endOfPaginationReached = locations.isEmpty()
+            val endOfPaginationReached = apiResponse.info.pages == pageIndex
             locationsDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
                     locationsDatabase.locationsRemoteKeysDao().clearRemoteKeys()
                     locationsDatabase.locationDao().clearLocations()
                 }
-                val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
-                val nextKey = if (endOfPaginationReached) null else page + 1
+                val prevKey = if (pageIndex == STARTING_PAGE_INDEX) null else pageIndex - 1
+                val nextKey = if (endOfPaginationReached) null else pageIndex + 1
                 val keys = locations.map {
                     LocationsRemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
@@ -122,5 +96,14 @@ class LocationsRemoteMediator(
                 locationsDatabase.locationsRemoteKeysDao().remoteKeysLocId(locId)
             }
         }
+    }
+
+    private fun getPageIndex(loadType: LoadType): Int? {
+        pageIndex = when(loadType){
+            LoadType.REFRESH -> 0
+            LoadType.PREPEND -> return null
+            LoadType.APPEND -> ++pageIndex
+        }
+        return pageIndex
     }
 }
