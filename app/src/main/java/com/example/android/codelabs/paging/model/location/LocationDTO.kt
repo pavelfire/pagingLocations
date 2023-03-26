@@ -9,3 +9,15 @@ data class LocationDTO(
     val type: String,
     val url: String
 )
+
+fun LocationDTO.mapToEntity(locationDTO: LocationDTO): LocationEntity {
+    return LocationEntity(
+        created = created,
+        dimension = dimension,
+        id = id,
+        name = name,
+        residents = residents.joinToString(separator = "\n"),
+        type = type,
+        url = url
+    )
+}

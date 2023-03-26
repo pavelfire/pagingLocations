@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.location
 
 import android.content.Intent
 import android.net.Uri
@@ -24,12 +24,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.codelabs.paging.R
-import com.example.android.codelabs.paging.model.Repo
-import com.example.android.codelabs.paging.model.location.LocationDTO
+import com.example.android.codelabs.paging.model.location.LocationEntity
 
-/**
- * View Holder for a [Repo] RecyclerView list item.
- */
 class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val name: TextView = view.findViewById(R.id.repo_name)
     private val description: TextView = view.findViewById(R.id.repo_description)
@@ -37,7 +33,7 @@ class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val language: TextView = view.findViewById(R.id.repo_language)
     private val forks: TextView = view.findViewById(R.id.repo_forks)
 
-    private var repo: LocationDTO? = null
+    private var repo: LocationEntity? = null
 
     init {
         view.setOnClickListener {
@@ -48,7 +44,7 @@ class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(repo: LocationDTO?) {
+    fun bind(repo: LocationEntity?) {
         if (repo == null) {
             val resources = itemView.resources
             name.text = resources.getString(R.string.loading)
@@ -61,7 +57,7 @@ class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun showRepoData(repo: LocationDTO) {
+    private fun showRepoData(repo: LocationEntity) {
         this.repo = repo
         name.text = repo.name
 

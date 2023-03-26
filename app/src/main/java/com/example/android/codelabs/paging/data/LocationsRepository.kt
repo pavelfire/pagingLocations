@@ -16,85 +16,42 @@
 
 package com.example.android.codelabs.paging.data
 
-import android.util.Log
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.android.codelabs.paging.api.RickAndMortyService
-import com.example.android.codelabs.paging.model.LocatResult
-import com.example.android.codelabs.paging.model.location.LocationDTO
-import com.example.android.codelabs.paging.model.location.LocationsParams
+import com.example.android.codelabs.paging.data.db.LocationsDatabase
+import com.example.android.codelabs.paging.model.location.LocationEntity
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import retrofit2.HttpException
-import java.io.IOException
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
 private const val STARTING_PAGE_INDEX = 1
 
-class LocationsRepository(private val service: RickAndMortyService) {
+class LocationsRepository(
+    private val service: RickAndMortyService,
+    private val database: LocationsDatabase
+) {
 
-    private val inMemoryCache = mutableListOf<LocationDTO>()
-    private val searchResults = MutableSharedFlow<LocatResult>(replay = 1)
-    private var lastRequestedPage = STARTING_PAGE_INDEX
-    private var isRequestInProgress = false
-    private var pages = -1
-
-    suspend fun getSearchResultStream(query: LocationsParams): Flow<LocatResult> {
-        Log.d("GithubRepository", "New query: $query")
-        lastRequestedPage = STARTING_PAGE_INDEX
-        inMemoryCache.clear()
-        requestAndSaveData(query)
-
-        return searchResults
+    @OptIn(ExperimentalPagingApi::class)
+    fun getSearchResultStream(query: String): Flow<PagingData<LocationEntity>> {
+        val dbQuery = "%${query.replace(' ', '%')}%"
+        val pagingSourceFactory = { database.locationDao().locationsByName(dbQuery) }
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            remoteMediator = LocationsRemoteMediator(
+                query,
+                service,
+                database
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
     }
 
-    suspend fun requestMore(query: LocationsParams) {
-        if (isRequestInProgress) return
-        val successful = requestAndSaveData(query)
-        if (successful) {
-            lastRequestedPage++
-        }
-    }
-
-    suspend fun retry(query: LocationsParams) {
-        if (isRequestInProgress) return
-        requestAndSaveData(query)
-    }
-
-    private suspend fun requestAndSaveData(params: LocationsParams): Boolean {
-        isRequestInProgress = true
-        var successful = false
-
-        if (lastRequestedPage == pages + 1) return false
-
-        try {
-            val response = service.searchLocations(
-                name = params.name,
-                type = params.type,
-                dimension = params.dimension,
-                page = lastRequestedPage,
-            )
-            Log.d("LocationsRepository", "---------response $response")
-            Log.d("LocationsRepository", "=========lastRequestedPage: $lastRequestedPage")
-            pages = response.info.pages
-            val repos = response.results ?: emptyList()
-            inMemoryCache.addAll(repos)
-            val reposByName = reposByName(params.name)
-            searchResults.emit(LocatResult.Success(reposByName))
-            successful = true
-        } catch (exception: IOException) {
-            searchResults.emit(LocatResult.Error(exception))
-        } catch (exception: HttpException) {
-            searchResults.emit(LocatResult.Error(exception))
-        }
-        isRequestInProgress = false
-        return successful
-    }
-
-    private fun reposByName(query: String): List<LocationDTO> {
-
-        return inMemoryCache.filter {
-            it.name.contains(query, true) ||
-                    (it.name != null && it.name.contains(query, true))
-        }
-        //.sortedWith(compareByDescending<LocationDTO> { it.id }.thenBy { it.name })
+    companion object {
+        const val NETWORK_PAGE_SIZE = 20
     }
 }

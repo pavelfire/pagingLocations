@@ -23,8 +23,9 @@ import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.RickAndMortyService
 import com.example.android.codelabs.paging.data.GithubRepository
 import com.example.android.codelabs.paging.data.LocationsRepository
+import com.example.android.codelabs.paging.data.db.LocationsDatabase
 import com.example.android.codelabs.paging.data.db.RepoDatabase
-import com.example.android.codelabs.paging.ui.LocationViewModelFactory
+import com.example.android.codelabs.paging.ui.location.LocationViewModelFactory
 import com.example.android.codelabs.paging.ui.repo.ViewModelFactory
 
 /**
@@ -34,29 +35,33 @@ import com.example.android.codelabs.paging.ui.repo.ViewModelFactory
  */
 object Injection {
 
-    /**
-     * Creates an instance of [GithubRepository] based on the [GithubService] and a
-     * [GithubLocalCache]
-     */
     private fun provideGithubRepository(context: Context): GithubRepository {
         return GithubRepository(GithubService.create(), RepoDatabase.getInstance(context))
     }
 
-    /**
-     * Provides the [ViewModelProvider.Factory] that is then used to get a reference to
-     * [ViewModel] objects.
-     */
-    fun provideViewModelFactory(context: Context, owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
+    fun provideViewModelFactory(
+        context: Context,
+        owner: SavedStateRegistryOwner
+    ): ViewModelProvider.Factory {
         return ViewModelFactory(owner, provideGithubRepository(context))
     }
 
     //-----------------------------------------------------------------------------------------
 
-    private fun provideLocationsRepository(): LocationsRepository {
-        return LocationsRepository(RickAndMortyService.create())
+    private fun provideLocationsRepository(context: Context): LocationsRepository {
+        return LocationsRepository(
+            RickAndMortyService.create(),
+            LocationsDatabase.getInstance(context)
+        )
     }
 
-    fun provideLocationViewModelFactory(owner: SavedStateRegistryOwner): ViewModelProvider.Factory {
-        return LocationViewModelFactory(owner, provideLocationsRepository())
+    fun provideLocationViewModelFactory(
+        context: Context,
+        owner: SavedStateRegistryOwner
+    ): ViewModelProvider.Factory {
+        return LocationViewModelFactory(
+            owner,
+            provideLocationsRepository(context)
+        )
     }
 }
