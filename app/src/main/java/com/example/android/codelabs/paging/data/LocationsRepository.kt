@@ -26,7 +26,6 @@ import com.example.android.codelabs.paging.model.location.LocationEntity
 import kotlinx.coroutines.flow.Flow
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
-private const val STARTING_PAGE_INDEX = 1
 
 class LocationsRepository(
     private val service: RickAndMortyService,
