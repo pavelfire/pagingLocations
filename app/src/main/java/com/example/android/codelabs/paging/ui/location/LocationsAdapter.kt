@@ -26,11 +26,12 @@ import com.example.android.codelabs.paging.ui.repo.SeparatorViewHolder
 class LocationsAdapter : PagingDataAdapter<UiModelLocat, RecyclerView.ViewHolder>(UIMODEL_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == R.layout.repo_view_item) {
-            LocationViewHolder.create(parent)
-        } else {
-            SeparatorViewHolder.create(parent)
-        }
+//        return if (viewType == R.layout.repo_view_item) {
+//            LocationViewHolder.create(parent)
+//        } else {
+//            SeparatorViewHolder.create(parent)
+//        }
+        return LocationViewHolder.create(parent)
     }
 
     override fun getItemViewType(position: Int): Int {
