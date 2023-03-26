@@ -17,7 +17,7 @@ data class LocationEntity(
     val url: String
 )
 
-fun LocationEntity.mapToDTO(locationEntity: LocationEntity): LocationDTO {
+fun LocationEntity.mapToDTO(): LocationDTO {
     return LocationDTO(
         created = created,
         dimension = dimension,
