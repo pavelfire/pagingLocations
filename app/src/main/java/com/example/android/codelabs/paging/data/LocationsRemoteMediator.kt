@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.data
 
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState.Loading.endOfPaginationReached
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
@@ -14,7 +15,7 @@ import retrofit2.HttpException
 import java.io.IOException
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
-private const val GITHUB_STARTING_PAGE_INDEX = 1
+private const val STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
 class LocationsRemoteMediator(
@@ -30,16 +31,17 @@ class LocationsRemoteMediator(
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: GITHUB_STARTING_PAGE_INDEX
+                remoteKeys?.nextKey?.minus(1) ?: STARTING_PAGE_INDEX
             }
             LoadType.PREPEND -> {
-                val remoteKeys = getRemoteKeyForFirstItem(state)
-                // If remoteKeys is null, that means the refresh result is not in the database yet.
-                val prevKey = remoteKeys?.prevKey
-                if (prevKey == null) {
-                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
-                }
-                prevKey
+                return MediatorResult.Success(endOfPaginationReached = true)
+//                val remoteKeys = getRemoteKeyForFirstItem(state)
+//                // If remoteKeys is null, that means the refresh result is not in the database yet.
+//                val prevKey = remoteKeys?.prevKey
+//                if (prevKey == null) {
+//                    return MediatorResult.Success(endOfPaginationReached = remoteKeys != null)
+//                }
+//                prevKey
             }
             LoadType.APPEND -> {
                 val remoteKeys = getRemoteKeyForLastItem(state)
@@ -74,7 +76,7 @@ class LocationsRemoteMediator(
                     locationsDatabase.locationsRemoteKeysDao().clearRemoteKeys()
                     locationsDatabase.locationDao().clearLocations()
                 }
-                val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
+                val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = locations.map {
                     LocationsRemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
