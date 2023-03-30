@@ -16,11 +16,12 @@ interface LocationDao {
 
     @Query(
         "SELECT * FROM $LOCATIONS_TABLE_NAME WHERE " +
-                "name LIKE :queryString " +
-                "ORDER BY name ASC"
+                "name LIKE :queryString " //+
+                //"ORDER BY name ASC"
     )
     fun locationsByName(queryString: String): PagingSource<Int, LocationEntity>
 
     @Query("DELETE FROM locations")
     suspend fun clearLocations()
 }
+
