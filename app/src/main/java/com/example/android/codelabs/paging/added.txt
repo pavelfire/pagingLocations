@@ -3,3 +3,6 @@ locat_paging
 сейчас я переключусь на loca_paging и наберу команду git rebase locat_paging
 таким образом я получу все изменения, которые произошли в locat_paging
 после того как я от неё создал ветку loca_paging
+
+
+nfr djn 'nj d kjrf gf;byu gjckt ht,fpt gjzdbncz bk d locat paging'
