@@ -15,3 +15,5 @@ internal class MainViewModel(
 }
 
 //loca_paging first commit
+
+//независимое изм в локат паджинг
