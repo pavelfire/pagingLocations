@@ -43,6 +43,8 @@ class LocationsActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        lifecycleScope
+
         // get the view model
         val viewModel = ViewModelProvider(
             this, Injection.provideLocationViewModelFactory(
