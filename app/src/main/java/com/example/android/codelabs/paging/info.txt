@@ -16,3 +16,6 @@ internal class MainViewModel(
 
 About Interceptors
 https://russianblogs.com/article/67641419072/
+
+Important about Clean Architecture
+https://medium.com/nuances-of-programming/clean-architecture-в-android-для-начинающих-f44d25495f5b
