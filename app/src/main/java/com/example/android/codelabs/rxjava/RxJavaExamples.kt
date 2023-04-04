@@ -1,8 +1,9 @@
 package com.example.android.codelabs.rxjava
 
 import io.reactivex.Observable
-import org.reactivestreams.Subscriber
-
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 class RxJavaExamples {
@@ -10,25 +11,41 @@ class RxJavaExamples {
 
 fun main(){
 
-    val myObservable: Observable<String> = Observable.create(
-        object : Observable<String?>() {
-            fun call(sub: Subscriber<in String?>) {
-                sub.onNext("Hello, world!")
-                sub.onCompleted()
-            }
-        }
-    )
+    val observableObject = Observable.create(ObservableOnSubscribe<Int>{
 
-    val mySubscriber: Subscriber<String> = object : Subscriber<String?>() {
-        fun onNext(s: String?) {
-            println(s)
+        if(!it.isDisposed){
+            it.onNext(10)
+        }
+        if(!it.isDisposed){
+            it.onNext(20)
+        }
+        if(!it.isDisposed){
+            it.onNext(30)
+            it.onComplete()
+        }
+    } )
+
+    val observerInstance = object : io.reactivex.Observer<Int> {
+
+        override fun onComplete() {
+            println("onComplete")
         }
 
-        fun onCompleted() {}
-        fun onError(e: Throwable?) {}
+        override fun onSubscribe(d: Disposable) {
+            println("onSubscribe")
+        }
+
+        override fun onNext(t: Int) {
+            println("onNext $t")
+        }
+
+        override fun onError(e: Throwable) {
+            println("onError "+e.localizedMessage)
+        }
+
     }
 
-    myObservable.subscribe(mySubscriber)
+    observableObject.subscribe(observerInstance)
 
 
 }
