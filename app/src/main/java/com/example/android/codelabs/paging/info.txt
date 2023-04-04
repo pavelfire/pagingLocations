@@ -19,3 +19,13 @@ https://russianblogs.com/article/67641419072/
 
 Important about Clean Architecture
 https://medium.com/nuances-of-programming/clean-architecture-в-android-для-начинающих-f44d25495f5b
+
+https://medium.com/nuances-of-programming/новый-подход-к-пониманию-rxjava-c609329fb668
+
+https://betterprogramming.pub/complete-guide-on-rxjava-d997235e4eec
+
+https://medium.com/mobile-app-development-publication/keep-your-kotlin-flow-alive-and-listening-with-callbackflow-c95e5dd545a
+
+https://levelup.gitconnected.com/understanding-the-delegation-pattern-with-kotlin-on-android-8d7698524939
+
+https://itsobes.ru/AndroidSobes/

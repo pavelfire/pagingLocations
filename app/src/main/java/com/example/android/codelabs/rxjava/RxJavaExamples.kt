@@ -11,10 +11,19 @@ class RxJavaExamples {
 
 fun main(){
 
+
+    rxObservableExample(17)
+
+}
+
+fun rxObservableExample(number: Int){
     val observableObject = Observable.create(ObservableOnSubscribe<Int>{
 
         if(!it.isDisposed){
             it.onNext(10)
+        }
+        if(!it.isDisposed){
+            it.onNext(number)
         }
         if(!it.isDisposed){
             it.onNext(20)
@@ -46,6 +55,4 @@ fun main(){
     }
 
     observableObject.subscribe(observerInstance)
-
-
 }

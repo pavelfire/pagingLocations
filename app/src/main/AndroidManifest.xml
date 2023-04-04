@@ -30,6 +30,15 @@
             android:name="com.example.android.codelabs.paging.ui.location.LocationsActivity"
             android:exported="true">
 
+
+
+        </activity>
+
+        <activity
+            android:name="com.example.android.codelabs.rxjava.RxExampleActivity"
+            android:label="RxExample"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
