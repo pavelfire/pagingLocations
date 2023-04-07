@@ -29,3 +29,5 @@ https://medium.com/mobile-app-development-publication/keep-your-kotlin-flow-aliv
 https://levelup.gitconnected.com/understanding-the-delegation-pattern-with-kotlin-on-android-8d7698524939
 
 https://itsobes.ru/AndroidSobes/
+
+https://github.com/avito-tech/playbook
