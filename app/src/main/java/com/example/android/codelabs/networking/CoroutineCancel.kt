@@ -23,7 +23,7 @@ fun main(args: Array<String>) = runBlocking<Unit> {
         try {
             work()
         } catch (e: CancellationException){
-            println("Work cancelled!")
+            println("Work cancelled! CoroutineCancel.kt")
         } finally {
             println("Clean up!")
         }
