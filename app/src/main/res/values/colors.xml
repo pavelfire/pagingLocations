@@ -23,5 +23,6 @@
     <color name="titleColorAlpha">#551F75FE</color>
     <color name="greyAlpha">#55999999</color>
     <color name="separatorBackground">#AAAAAA</color>
+    <color name="screensBackground">#DAE4BE</color>
     <color name="separatorText">#FFFFFF</color>
 </resources>
