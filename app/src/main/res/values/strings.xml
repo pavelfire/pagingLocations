@@ -22,4 +22,11 @@
     <string name="no_results">No results 😓</string>
     <string name="unknown">\?</string>
     <string name="retry">Retry</string>
+    <string name="locations">Locations</string>
+    <string name="characters">Characters</string>
+    <string name="episodes">Episodes</string>
+    <string name="all">all</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="genderless">genderless</string>
 </resources>

@@ -16,9 +16,11 @@
 
 package com.example.android.codelabs.paging.api
 
+import com.example.android.codelabs.paging.model.character.CharacterResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -40,6 +42,14 @@ interface RickAndMortyService {
         @Query("dimension") dimension: String,
         @Query("page") page: Int,
     ): LocationsResponse
+
+    @GET("/api/character")
+    suspend fun getCharacters(
+        @Query("page") pageNumber: Int? = 1,
+        @Query("name") name: String? = "",
+        @Query("gender") gender: String? = "",
+        @Query("status") status: String? = "",
+    ): Response<CharacterResponse>
 
     companion object {
         private const val BASE_URL = "https://rickandmortyapi.com/api/"
