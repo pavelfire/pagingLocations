@@ -1,34 +1,35 @@
 package com.example.android.codelabs.paging.model.character
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import androidx.room.Entity
 
-@Parcelize
-data class CharacterDto(
+const val CHARACTERS_TABLE_NAME = "characters"
+
+@Entity(tableName = CHARACTERS_TABLE_NAME)
+data class CharacterEntity(
     val created: String,
-    val episode: List<String>,
+    val episode: String,
     val gender: String,
     val id: Int,
     val image: String,
-    val location: Location,
+    val location: String,
     val name: String,
-    val origin: Origin,
+    val origin: String,
     val species: String,
     val status: String,
     val type: String,
     val url: String
-): Parcelable
+)
 
-fun CharacterDto.mapToEntity(): CharacterEntity{
-    return CharacterEntity(
+fun CharacterEntity.mapToDto(): CharacterDto {
+    return CharacterDto(
         created = created,
-        episode = episode.joinToString(separator = "\n"),
+        episode = episode.lines(),
         gender = gender,
         id = id,
         image = image,
-        location = "${location.name}\n${location.url}",
+        location = Location(location, ""),
         name = name,
-        origin = "${origin.name}\n${origin.url}",
+        origin = Origin(origin, ""),
         species = species,
         status = status,
         type = type,

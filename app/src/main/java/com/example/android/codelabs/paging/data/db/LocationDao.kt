@@ -21,14 +21,7 @@ interface LocationDao {
     )
     fun locationsByName(queryString: String): PagingSource<Int, LocationEntity>
 
-    @Query("DELETE FROM locations")
+    @Query("DELETE FROM $LOCATIONS_TABLE_NAME")
     suspend fun clearLocations()
 }
-
-//locat_paging some changes
-
-
-// привет тут много изменений после ребазе в твою ветку в которой ты работаешь loca_paging
-// попадут все эти изменения и новые файлы, то есть ты сможешь работать в новой версии кода
-// которую изменил кто то другой
 
