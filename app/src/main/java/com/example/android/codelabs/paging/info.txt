@@ -31,3 +31,6 @@ https://levelup.gitconnected.com/understanding-the-delegation-pattern-with-kotli
 https://itsobes.ru/AndroidSobes/
 
 https://github.com/avito-tech/playbook
+
+Rick and Morty GraphQL
+https://www.youtube.com/watch?v=BVEm3IjrgGI
