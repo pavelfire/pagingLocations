@@ -20,11 +20,31 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.android.codelabs.paging.api.RickAndMortyService
-import com.example.android.codelabs.paging.data.LocationsRepository
-import com.example.android.codelabs.paging.data.db.LocationsDatabase
+import com.example.android.codelabs.paging.data.db.character.CharactersDatabase
+import com.example.android.codelabs.paging.data.db.character.CharactersRepository
+import com.example.android.codelabs.paging.data.db.location.LocationsRepository
+import com.example.android.codelabs.paging.data.db.location.LocationsDatabase
+import com.example.android.codelabs.paging.ui.character.CharacterViewModelFactory
 import com.example.android.codelabs.paging.ui.location.LocationViewModelFactory
 
 object Injection {
+
+    private fun provideCharactersRepository(context: Context): CharactersRepository {
+        return CharactersRepository(
+            RickAndMortyService.create(),
+            CharactersDatabase.getInstance(context)
+        )
+    }
+
+    fun provideCharacterViewModelFactory(
+        context: Context,
+        owner: SavedStateRegistryOwner
+    ): ViewModelProvider.Factory {
+        return CharacterViewModelFactory(
+            owner,
+            provideCharactersRepository(context)
+        )
+    }
 
     private fun provideLocationsRepository(context: Context): LocationsRepository {
         return LocationsRepository(

@@ -1,6 +1,5 @@
 package com.example.android.codelabs.paging.model
 
-import com.example.android.codelabs.paging.model.counterMine.sharedCounter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newFixedThreadPoolContext

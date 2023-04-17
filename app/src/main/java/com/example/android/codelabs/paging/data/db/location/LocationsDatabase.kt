@@ -1,9 +1,11 @@
-package com.example.android.codelabs.paging.data.db
+package com.example.android.codelabs.paging.data.db.location
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.android.codelabs.paging.data.db.LocationsRemoteKeys
+import com.example.android.codelabs.paging.data.db.LocationsRemoteKeysDao
 import com.example.android.codelabs.paging.model.location.LocationEntity
 
 @Database(

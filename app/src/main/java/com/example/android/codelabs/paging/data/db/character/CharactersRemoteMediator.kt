@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.data
+package com.example.android.codelabs.paging.data.db.character
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -6,27 +6,27 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.example.android.codelabs.paging.api.RickAndMortyService
-import com.example.android.codelabs.paging.data.db.LocationsDatabase
 import com.example.android.codelabs.paging.data.db.LocationsRemoteKeys
+import com.example.android.codelabs.paging.model.character.CharacterEntity
+import com.example.android.codelabs.paging.model.character.mapToEntity
 import com.example.android.codelabs.paging.model.location.LocationEntity
-import com.example.android.codelabs.paging.model.location.mapToEntity
 import retrofit2.HttpException
 import java.io.IOException
 
 private const val STARTING_PAGE_INDEX = 1
 
 @OptIn(ExperimentalPagingApi::class)
-class LocationsRemoteMediator(
+class CharactersRemoteMediator(
     private val query: String,
     private val service: RickAndMortyService,
-    private val locationsDatabase: LocationsDatabase
-) : RemoteMediator<Int, LocationEntity>() {
+    private val charactersDatabase: CharactersDatabase
+) : RemoteMediator<Int, CharacterEntity>() {
 
     private var pageIndex = 0
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, LocationEntity>
+        state: PagingState<Int, CharacterEntity>
     ): MediatorResult {
 
         pageIndex =
@@ -35,28 +35,28 @@ class LocationsRemoteMediator(
         val apiQuery = query
 
         try {
-            val apiResponse = service.searchLocations(
+            val apiResponse = service.getCharacters(
                 name = apiQuery,
-                type = "",
-                dimension = "",
-                page = pageIndex,
+                gender = "",
+                status = "",
+                pageNumber = pageIndex,
             )
 
             val locations = apiResponse.results
             val endOfPaginationReached = apiResponse.info.pages == pageIndex
-            locationsDatabase.withTransaction {
+            charactersDatabase.withTransaction {
                 // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
-                    locationsDatabase.locationsRemoteKeysDao().clearRemoteKeys()
-                    locationsDatabase.locationDao().clearLocations()
+                    charactersDatabase.locationsRemoteKeysDao().clearRemoteKeys()
+                    charactersDatabase.characterDao().clearCharacters()
                 }
                 val prevKey = if (pageIndex == STARTING_PAGE_INDEX) null else pageIndex - 1
                 val nextKey = if (endOfPaginationReached) null else pageIndex + 1
                 val keys = locations.map {
                     LocationsRemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
-                locationsDatabase.locationsRemoteKeysDao().insertAll(keys)
-                locationsDatabase.locationDao().insertAll(locations.map { it.mapToEntity(it) })
+                charactersDatabase.locationsRemoteKeysDao().insertAll(keys)
+                charactersDatabase.characterDao().insertAll(locations.map { it.mapToEntity() })
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {
@@ -72,7 +72,7 @@ class LocationsRemoteMediator(
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { loc ->
                 // Get the remote keys of the last item retrieved
-                locationsDatabase.locationsRemoteKeysDao().remoteKeysLocId(loc.id)
+                charactersDatabase.locationsRemoteKeysDao().remoteKeysLocId(loc.id)
             }
     }
 
@@ -82,7 +82,7 @@ class LocationsRemoteMediator(
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { loc ->
                 // Get the remote keys of the first items retrieved
-                locationsDatabase.locationsRemoteKeysDao().remoteKeysLocId(loc.id)
+                charactersDatabase.locationsRemoteKeysDao().remoteKeysLocId(loc.id)
             }
     }
 
@@ -93,7 +93,7 @@ class LocationsRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { locId ->
-                locationsDatabase.locationsRemoteKeysDao().remoteKeysLocId(locId)
+                charactersDatabase.locationsRemoteKeysDao().remoteKeysLocId(locId)
             }
         }
     }

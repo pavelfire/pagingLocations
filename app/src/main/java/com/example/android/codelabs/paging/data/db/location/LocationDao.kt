@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.data.db
+package com.example.android.codelabs.paging.data.db.location
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

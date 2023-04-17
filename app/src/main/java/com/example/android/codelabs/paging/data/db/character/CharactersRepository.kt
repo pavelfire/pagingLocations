@@ -14,34 +14,33 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.data
+package com.example.android.codelabs.paging.data.db.character
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.android.codelabs.paging.api.RickAndMortyService
-import com.example.android.codelabs.paging.data.db.LocationsDatabase
-import com.example.android.codelabs.paging.model.location.LocationEntity
+import com.example.android.codelabs.paging.model.character.CharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
 
-class LocationsRepository(
+class CharactersRepository(
     private val service: RickAndMortyService,
-    private val database: LocationsDatabase
+    private val database: CharactersDatabase
 ) {
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getSearchResultStream(query: String): Flow<PagingData<LocationEntity>> {
+    fun getSearchResultStream(query: String): Flow<PagingData<CharacterEntity>> {
         val dbQuery = "%${query.replace(' ', '%')}%"
-        val pagingSourceFactory = { database.locationDao().locationsByName(dbQuery) }
+        val pagingSourceFactory = { database.characterDao().charactersByName(dbQuery) }
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            remoteMediator = LocationsRemoteMediator(
+            remoteMediator = CharactersRemoteMediator(
                 query,
                 service,
                 database

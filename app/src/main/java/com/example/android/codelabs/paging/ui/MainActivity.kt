@@ -16,6 +16,7 @@ import com.example.android.codelabs.paging.contract.Navigator
 import com.example.android.codelabs.paging.contract.ResultListener
 import com.example.android.codelabs.paging.databinding.ActivityMainBinding
 import com.example.android.codelabs.paging.model.character.CharacterDto
+import com.example.android.codelabs.paging.ui.character.CharactersFragment
 
 private const val LAST_SELECTED_ITEM = "item"
 private const val KEY_RESULT = "KEY_RESULT"

@@ -49,7 +49,7 @@ interface RickAndMortyService {
         @Query("name") name: String? = "",
         @Query("gender") gender: String? = "",
         @Query("status") status: String? = "",
-    ): Response<CharacterResponse>
+    ): CharacterResponse
 
     companion object {
         private const val BASE_URL = "https://rickandmortyapi.com/api/"

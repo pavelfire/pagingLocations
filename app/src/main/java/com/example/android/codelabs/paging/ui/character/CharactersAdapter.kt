@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.character
 
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.codelabs.paging.R
-import com.example.android.codelabs.paging.ui.location.LocationViewHolder
-import com.example.android.codelabs.paging.ui.location.UiModelLocat
 import com.example.android.codelabs.paging.ui.repo.SeparatorViewHolder
 
-class CharactersAdapter : PagingDataAdapter<UiModelLocat, RecyclerView.ViewHolder>(UIMODEL_COMPARATOR) {
+class CharactersAdapter : PagingDataAdapter<UiModelCharact, RecyclerView.ViewHolder>(
+    UIMODEL_COMPARATOR
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 //        return if (viewType == R.layout.repo_view_item) {
@@ -33,13 +33,13 @@ class CharactersAdapter : PagingDataAdapter<UiModelLocat, RecyclerView.ViewHolde
 //        } else {
 //            SeparatorViewHolder.create(parent)
 //        }
-        return LocationViewHolder.create(parent)
+        return CharacterViewHolder.create(parent)
     }
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is UiModelLocat.LocatItem -> R.layout.location_view_item
-            is UiModelLocat.SeparatorItem -> R.layout.separator_view_item
+            is UiModelCharact.LocatItem -> R.layout.location_view_item
+            is UiModelCharact.SeparatorItem -> R.layout.separator_view_item
             null -> throw UnsupportedOperationException("Unknown view")
         }
     }
@@ -48,23 +48,23 @@ class CharactersAdapter : PagingDataAdapter<UiModelLocat, RecyclerView.ViewHolde
         val uiModelLocat = getItem(position)
         uiModelLocat.let {
             when (uiModelLocat) {
-                is UiModelLocat.LocatItem -> (holder as LocationViewHolder).bind(uiModelLocat.locat)
-                is UiModelLocat.SeparatorItem -> (holder as SeparatorViewHolder).bind(uiModelLocat.description)
+                is UiModelCharact.LocatItem -> (holder as CharacterViewHolder).bind(uiModelLocat.locat)
+                is UiModelCharact.SeparatorItem -> (holder as SeparatorViewHolder).bind(uiModelLocat.description)
                 else -> Exception()
             }
         }
     }
 
     companion object {
-        private val UIMODEL_COMPARATOR = object : DiffUtil.ItemCallback<UiModelLocat>() {
-            override fun areItemsTheSame(oldItem: UiModelLocat, newItem: UiModelLocat): Boolean {
-                return (oldItem is UiModelLocat.LocatItem && newItem is UiModelLocat.LocatItem &&
+        private val UIMODEL_COMPARATOR = object : DiffUtil.ItemCallback<UiModelCharact>() {
+            override fun areItemsTheSame(oldItem: UiModelCharact, newItem: UiModelCharact): Boolean {
+                return (oldItem is UiModelCharact.LocatItem && newItem is UiModelCharact.LocatItem &&
                         oldItem.locat.name == newItem.locat.name) ||
-                        (oldItem is UiModelLocat.SeparatorItem && newItem is UiModelLocat.SeparatorItem &&
+                        (oldItem is UiModelCharact.SeparatorItem && newItem is UiModelCharact.SeparatorItem &&
                                 oldItem.description == newItem.description)
             }
 
-            override fun areContentsTheSame(oldItem: UiModelLocat, newItem: UiModelLocat): Boolean =
+            override fun areContentsTheSame(oldItem: UiModelCharact, newItem: UiModelCharact): Boolean =
                 oldItem == newItem
         }
     }

@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui.location
+package com.example.android.codelabs.paging.ui.character
 
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.android.codelabs.paging.data.db.character.CharactersRepository
 import com.example.android.codelabs.paging.data.db.location.LocationsRepository
+import com.example.android.codelabs.paging.ui.location.LocationsViewModel
 
 /**
  * Factory for ViewModels
  */
-class LocationViewModelFactory(
+class CharacterViewModelFactory(
     owner: SavedStateRegistryOwner,
-    private val repository: LocationsRepository
+    private val repository: CharactersRepository
 ) : AbstractSavedStateViewModelFactory(owner, null) {
 
     override fun <T : ViewModel?> create(
@@ -35,9 +37,9 @@ class LocationViewModelFactory(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        if (modelClass.isAssignableFrom(LocationsViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CharactersViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return LocationsViewModel(repository, handle) as T
+            return CharactersViewModel(repository, handle) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

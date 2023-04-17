@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.character
 
 import android.content.Intent
 import android.net.Uri
@@ -24,7 +24,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.codelabs.paging.R
+import com.example.android.codelabs.paging.model.character.CharacterEntity
 import com.example.android.codelabs.paging.model.location.LocationEntity
 
 class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +36,7 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val tvStatus: TextView = view.findViewById(R.id.tvStatus)
     private val tvGender: TextView = view.findViewById(R.id.tvGender)
 
-    private var repo: LocationEntity? = null
+    private var repo: CharacterEntity? = null
 
     init {
         view.setOnClickListener {
@@ -45,20 +47,19 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
-    fun bind(repo: LocationEntity?) {
+    fun bind(repo: CharacterEntity?) {
         if (repo == null) {
             val resources = itemView.resources
             name.text = resources.getString(R.string.loading)
             tvSpecies.visibility = View.GONE
             tvStatus.visibility = View.GONE
             tvGender.text = resources.getString(R.string.unknown)
-
         } else {
             showRepoData(repo)
         }
     }
 
-    private fun showRepoData(repo: LocationEntity) {
+    private fun showRepoData(repo: CharacterEntity) {
         this.repo = repo
         name.text = repo.name
 
@@ -70,7 +71,7 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
         tvSpecies.visibility = descriptionVisibility
 
-        tvStatus.text = repo.dimension
+        tvStatus.text = repo.gender
         tvGender.text = repo.url
 
         // if the language is missing, hide the label and the value
@@ -81,6 +82,17 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             languageVisibility = View.VISIBLE
         }
         tvSpecies.visibility = languageVisibility
+
+        if (repo.image.isNotBlank()) {
+            Glide.with(image.context)
+                .load(repo.image)
+                .circleCrop()
+                .placeholder(R.drawable.ic_characters)
+                .error(R.drawable.ic_eye)
+                .into(image)
+        } else {
+            image.setImageResource(R.drawable.ic_characters)
+        }
     }
 
     companion object {

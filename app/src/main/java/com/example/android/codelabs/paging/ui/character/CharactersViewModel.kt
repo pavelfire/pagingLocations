@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.ui.location
+package com.example.android.codelabs.paging.ui.character
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -22,8 +22,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.example.android.codelabs.paging.data.db.location.LocationsRepository
-import com.example.android.codelabs.paging.model.location.LocationEntity
+import com.example.android.codelabs.paging.data.db.character.CharactersRepository
+import com.example.android.codelabs.paging.model.character.CharacterEntity
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -31,14 +31,14 @@ private const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"
 private const val LAST_SEARCH_QUERY: String = "last_search_query"
 private const val DEFAULT_QUERY = ""
 
-class LocationsViewModel(
-    private val repository: LocationsRepository,
+class CharactersViewModel(
+    private val repository: CharactersRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    val state: StateFlow<UiStateLocat>
-    val pagingDataFlow: Flow<PagingData<UiModelLocat>>
-    val accept: (UiActionLocat) -> Unit
+    val state: StateFlow<UiStateCharact>
+    val pagingDataFlow: Flow<PagingData<UiModelCharact>>
+    val accept: (UiActionCharact) -> Unit
 
 //    private val UiModelLocat.LocatItem.roundedStarCount: Int
 //        get() = this.locat.id / 5
@@ -46,13 +46,13 @@ class LocationsViewModel(
     init {
         val initialQuery: String = savedStateHandle.get(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
         val lastQueryScrolled: String = savedStateHandle.get(LAST_QUERY_SCROLLED) ?: DEFAULT_QUERY
-        val actionStateFlow = MutableSharedFlow<UiActionLocat>()
+        val actionStateFlow = MutableSharedFlow<UiActionCharact>()
         val searches = actionStateFlow
-            .filterIsInstance<UiActionLocat.Search>()
+            .filterIsInstance<UiActionCharact.Search>()
             .distinctUntilChanged()
-            .onStart { emit(UiActionLocat.Search(query = initialQuery)) }
+            .onStart { emit(UiActionCharact.Search(query = initialQuery)) }
         val queriesScrolled = actionStateFlow
-            .filterIsInstance<UiActionLocat.Scroll>()
+            .filterIsInstance<UiActionCharact.Scroll>()
             .distinctUntilChanged()
             // This is shared to keep the flow "hot" while caching the last query scrolled,
             // otherwise each flatMapLatest invocation would lose the last query scrolled,
@@ -61,7 +61,7 @@ class LocationsViewModel(
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
                 replay = 1
             )
-            .onStart { emit(UiActionLocat.Scroll(currentQuery = lastQueryScrolled)) }
+            .onStart { emit(UiActionCharact.Scroll(currentQuery = lastQueryScrolled)) }
 
         pagingDataFlow = searches
             .flatMapLatest { searchLocations(queryString = it.query) }
@@ -72,7 +72,7 @@ class LocationsViewModel(
             queriesScrolled,
             ::Pair
         ).map { (search, scroll) ->
-            UiStateLocat(
+            UiStateCharact(
                 query = search.query,
                 lastQueryScrolled = scroll.currentQuery,
                 // If the search query matches the scroll query, the user has scrolled
@@ -82,7 +82,7 @@ class LocationsViewModel(
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                initialValue = UiStateLocat()
+                initialValue = UiStateCharact()
             )
 
         accept = { action ->
@@ -97,9 +97,9 @@ class LocationsViewModel(
         super.onCleared()
     }
 
-    private fun searchLocations(queryString: String): Flow<PagingData<UiModelLocat>> =
+    private fun searchLocations(queryString: String): Flow<PagingData<UiModelCharact>> =
         repository.getSearchResultStream(queryString)
-            .map { pagingData -> pagingData.map { UiModelLocat.LocatItem(it) } }
+            .map { pagingData -> pagingData.map { UiModelCharact.LocatItem(it) } }
             /*
             .map {
                 it.insertSeparators { before, after ->
@@ -131,18 +131,18 @@ class LocationsViewModel(
              */
 }
 
-sealed class UiActionLocat {
-    data class Search(val query: String) : UiActionLocat()
-    data class Scroll(val currentQuery: String) : UiActionLocat()
+sealed class UiActionCharact {
+    data class Search(val query: String) : UiActionCharact()
+    data class Scroll(val currentQuery: String) : UiActionCharact()
 }
 
-data class UiStateLocat(
+data class UiStateCharact(
     val query: String = DEFAULT_QUERY,
     val lastQueryScrolled: String = DEFAULT_QUERY,
     val hasNotScrolledForCurrentSearch: Boolean = false
 )
 
-sealed class UiModelLocat {
-    data class LocatItem(val locat: LocationEntity) : UiModelLocat()
-    data class SeparatorItem(val description: String) : UiModelLocat()
+sealed class UiModelCharact {
+    data class LocatItem(val locat: CharacterEntity) : UiModelCharact()
+    data class SeparatorItem(val description: String) : UiModelCharact()
 }

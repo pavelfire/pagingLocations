@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.model.character
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 const val CHARACTERS_TABLE_NAME = "characters"
 
@@ -9,6 +10,7 @@ data class CharacterEntity(
     val created: String,
     val episode: String,
     val gender: String,
+    @PrimaryKey
     val id: Int,
     val image: String,
     val location: String,

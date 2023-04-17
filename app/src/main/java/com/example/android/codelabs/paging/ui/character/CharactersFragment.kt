@@ -1,11 +1,10 @@
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.character
 
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -27,16 +26,16 @@ import com.example.android.codelabs.paging.ui.repo.ReposLoadStateAdapter
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class LocationsFragment : Fragment(), HasCustomTitle {
+class CharactersFragment: Fragment(), HasCustomTitle {
 
     private lateinit var binding: FragmentCharactersBinding
 
     private fun FragmentCharactersBinding.bindStateLocat(
-        uiState: StateFlow<UiStateLocat>,
-        pagingData: Flow<PagingData<UiModelLocat>>,
-        uiActions: (UiActionLocat) -> Unit
+        uiState: StateFlow<UiStateCharact>,
+        pagingData: Flow<PagingData<UiModelCharact>>,
+        uiActions: (UiActionCharact) -> Unit
     ) {
-        val repoAdapter = LocationsAdapter()
+        val repoAdapter = CharactersAdapter()
         val header = ReposLoadStateAdapter { repoAdapter.retry() }
         list.adapter = repoAdapter.withLoadStateHeaderAndFooter(
             header = header,
@@ -57,8 +56,8 @@ class LocationsFragment : Fragment(), HasCustomTitle {
     }
 
     private fun FragmentCharactersBinding.bindSearchLocat(
-        uiState: StateFlow<UiStateLocat>,
-        onQueryChanged: (UiActionLocat.Search) -> Unit
+        uiState: StateFlow<UiStateCharact>,
+        onQueryChanged: (UiActionCharact.Search) -> Unit
     ) {
 //        searchView.setOnEditorActionListener { _, actionId, _ ->
 //            if (actionId == EditorInfo.IME_ACTION_GO) {
@@ -86,7 +85,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
     }
 
     private fun FragmentCharactersBinding.updateRepoListFromInputLocat(
-        onQueryChanged: (UiActionLocat.Search) -> Unit
+        onQueryChanged: (UiActionCharact.Search) -> Unit
     ) {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -94,7 +93,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
                 query.trim().let {
                     //if (it.isNotEmpty()) {
                     list.scrollToPosition(0)
-                    onQueryChanged(UiActionLocat.Search(query = it.toString()))
+                    onQueryChanged(UiActionCharact.Search(query = it.toString()))
                 }
                 return true
             }
@@ -103,7 +102,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
                 query.trim().let {
                     //if (it.isNotEmpty()) {
                     list.scrollToPosition(0)
-                    onQueryChanged(UiActionLocat.Search(query = it.toString()))
+                    onQueryChanged(UiActionCharact.Search(query = it.toString()))
                 }
                 return false
             }
@@ -112,16 +111,16 @@ class LocationsFragment : Fragment(), HasCustomTitle {
 
     private fun FragmentCharactersBinding.bindListLocat(
         header: ReposLoadStateAdapter,
-        repoAdapter: LocationsAdapter,
-        uiState: StateFlow<UiStateLocat>,
-        pagingData: Flow<PagingData<UiModelLocat>>,
-        onScrollChanged: (UiActionLocat.Scroll) -> Unit
+        repoAdapter: CharactersAdapter,
+        uiState: StateFlow<UiStateCharact>,
+        pagingData: Flow<PagingData<UiModelCharact>>,
+        onScrollChanged: (UiActionCharact.Scroll) -> Unit
     ) {
         rbFemale.setOnClickListener { repoAdapter.retry() }
 
         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if (dy != 0) onScrollChanged(UiActionLocat.Scroll(currentQuery = uiState.value.query))
+                if (dy != 0) onScrollChanged(UiActionCharact.Scroll(currentQuery = uiState.value.query))
             }
         })
 
@@ -216,12 +215,12 @@ class LocationsFragment : Fragment(), HasCustomTitle {
 
         // get the view model
         val viewModel = ViewModelProvider(
-            this, Injection.provideLocationViewModelFactory(
+            this, Injection.provideCharacterViewModelFactory(
                 context = requireContext(),
                 owner = this
             )
         )
-            .get(LocationsViewModel::class.java)
+            .get(CharactersViewModel::class.java)
 
         binding = FragmentCharactersBinding.inflate(inflater)
 
@@ -241,5 +240,5 @@ class LocationsFragment : Fragment(), HasCustomTitle {
         return binding.root
     }
 
-    override fun getTitleRes(): Int = R.string.locations
+    override fun getTitleRes(): Int = R.string.characters
 }
