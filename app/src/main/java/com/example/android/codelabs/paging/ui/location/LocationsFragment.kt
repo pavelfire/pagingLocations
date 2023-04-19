@@ -1,11 +1,10 @@
-package com.example.android.codelabs.paging.ui
+package com.example.android.codelabs.paging.ui.location
 
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,7 +21,6 @@ import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.contract.HasCustomTitle
 import com.example.android.codelabs.paging.databinding.ActivityLocationsBinding
 import com.example.android.codelabs.paging.databinding.FragmentCharactersBinding
-import com.example.android.codelabs.paging.ui.location.*
 import com.example.android.codelabs.paging.ui.repo.ReposLoadStateAdapter
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

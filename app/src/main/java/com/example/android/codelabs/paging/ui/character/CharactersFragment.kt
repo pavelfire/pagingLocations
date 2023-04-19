@@ -1,13 +1,12 @@
 package com.example.android.codelabs.paging.ui.character
 
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
@@ -237,7 +236,27 @@ class CharactersFragment: Fragment(), HasCustomTitle {
             uiActions = viewModel.accept
         )
 
+        setHasOptionsMenu(true)
+
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.filter_el -> {
+                Toast.makeText(requireContext(), "Shows dialog", Toast.LENGTH_LONG).show()
+                true
+            }
+            R.id.characters -> {
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun getTitleRes(): Int = R.string.characters

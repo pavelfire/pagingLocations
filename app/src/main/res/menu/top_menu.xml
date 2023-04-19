@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item android:id="@+id/filter_el"
+        android:icon="@drawable/ic_filter"
+        app:showAsAction="always"
+        android:title="filter"/>
+
+    <item
+        android:id="@+id/characters"
+        android:enabled="true"
+        android:icon="@drawable/ic_characters"
+        android:title="@string/characters" />
+    <item
+        android:id="@+id/locations"
+        android:enabled="true"
+        android:icon="@drawable/ic_characters"
+        android:title="@string/locations" />
+    <item
+        android:id="@+id/episodes"
+        android:enabled="true"
+        android:icon="@drawable/ic_characters"
+        android:title="@string/episodes" />
+
+</menu>

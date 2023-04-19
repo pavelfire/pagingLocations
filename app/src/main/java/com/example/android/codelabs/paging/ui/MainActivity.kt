@@ -17,6 +17,7 @@ import com.example.android.codelabs.paging.contract.ResultListener
 import com.example.android.codelabs.paging.databinding.ActivityMainBinding
 import com.example.android.codelabs.paging.model.character.CharacterDto
 import com.example.android.codelabs.paging.ui.character.CharactersFragment
+import com.example.android.codelabs.paging.ui.location.LocationsFragment
 
 private const val LAST_SELECTED_ITEM = "item"
 private const val KEY_RESULT = "KEY_RESULT"
@@ -171,7 +172,9 @@ class MainActivity: AppCompatActivity(), Navigator {
         launchFragment(SplashFragment())
     }
 
-    override fun showCharactersScreen() {}
+    override fun showCharactersScreen() {
+
+    }
 
     override fun showCharactersScreenDetail(character: CharacterDto) {}
 
