@@ -20,7 +20,7 @@
     <string name="language">Language: %s</string>
     <string name="search_hint">GitHub Repository</string>
     <string name="no_results">No results 😓</string>
-    <string name="unknown">\?</string>
+    <string name="unknown">unknown</string>
     <string name="retry">Retry</string>
     <string name="locations">Locations</string>
     <string name="characters">Characters</string>

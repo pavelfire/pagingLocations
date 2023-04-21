@@ -115,7 +115,7 @@ class LocationsFragment : Fragment(), HasCustomTitle {
         pagingData: Flow<PagingData<UiModelLocat>>,
         onScrollChanged: (UiActionLocat.Scroll) -> Unit
     ) {
-        rbFemale.setOnClickListener { repoAdapter.retry() }
+        //rbFemale.setOnClickListener { repoAdapter.retry() }
 
         list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

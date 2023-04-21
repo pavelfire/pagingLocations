@@ -53,36 +53,13 @@ class MainActivity: AppCompatActivity(), Navigator {
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.characters -> {
-                    supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
-                    )
-                    val charactersFragment = CharactersFragment()
-                    replaceFragment(charactersFragment)
+                    showCharactersScreen()
                 }
                 R.id.locations -> {
-                    supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
-                    )
-                    supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.fragment_container, CharactersFragment())
-                        .addToBackStack("")
-                        .replace(R.id.fragment_container, LocationsFragment())
-                        .commit()
+                    showLocationsScreen()
                 }
                 R.id.episodes -> {
-                    supportFragmentManager.popBackStack(
-                        null,
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE
-                    )
-                    supportFragmentManager
-                        .beginTransaction()
-                        .add(R.id.fragment_container, CharactersFragment())
-                        .addToBackStack("")
-                        .replace(R.id.fragment_container, EpisodesFragment())
-                        .commit()
+                    showEpisodesScreen()
                 }
             }
             true
@@ -173,14 +150,43 @@ class MainActivity: AppCompatActivity(), Navigator {
     }
 
     override fun showCharactersScreen() {
-
+        supportFragmentManager.popBackStack(
+            null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        val charactersFragment = CharactersFragment()
+        replaceFragment(charactersFragment)
     }
 
     override fun showCharactersScreenDetail(character: CharacterDto) {}
 
-    override fun showLocationsScreen() {}
+    override fun showLocationsScreen() {
+        supportFragmentManager.popBackStack(
+            null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_container, CharactersFragment())
+            .addToBackStack("")
+            .replace(R.id.fragment_container, LocationsFragment())
+            .commit()
+    }
 
-    override fun showEpisodesScreen() {}
+    override fun showEpisodesScreen() {
+        supportFragmentManager.popBackStack(
+            null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fragment_container, CharactersFragment())
+            .addToBackStack("")
+            .replace(R.id.fragment_container, EpisodesFragment())
+            .commit()
+
+        EpisodesDialogFragment().show(supportFragmentManager, "Filter")
+    }
 
     override fun goBack() {
         back()
