@@ -16,6 +16,8 @@ import com.example.android.codelabs.paging.contract.Navigator
 import com.example.android.codelabs.paging.contract.ResultListener
 import com.example.android.codelabs.paging.databinding.ActivityMainBinding
 import com.example.android.codelabs.paging.model.character.CharacterDto
+import com.example.android.codelabs.paging.model.character.CharacterEntity
+import com.example.android.codelabs.paging.ui.character.CharacterDetailFragment
 import com.example.android.codelabs.paging.ui.character.CharactersFragment
 import com.example.android.codelabs.paging.ui.location.LocationsFragment
 
@@ -158,7 +160,14 @@ class MainActivity: AppCompatActivity(), Navigator {
         replaceFragment(charactersFragment)
     }
 
-    override fun showCharactersScreenDetail(character: CharacterDto) {}
+    override fun showCharactersScreenDetail(character: CharacterEntity) {
+        supportFragmentManager.beginTransaction()
+            .replace(
+                R.id.fragment_container, CharacterDetailFragment.newInstance(character)
+            )
+            .addToBackStack(null)
+            .commit()
+    }
 
     override fun showLocationsScreen() {
         supportFragmentManager.popBackStack(

@@ -17,7 +17,7 @@
 package com.example.android.codelabs.paging.ui.character
 
 import android.content.Intent
-import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.model.character.CharacterEntity
-import com.example.android.codelabs.paging.model.location.LocationEntity
 
 class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val image: ImageView = view.findViewById(R.id.image)
@@ -38,14 +37,18 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     private var repo: CharacterEntity? = null
 
+    /*
     init {
         view.setOnClickListener {
-            repo?.url?.let { url ->
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                view.context.startActivity(intent)
+//            repo?.url?.let { url ->
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+//                view.context.startActivity(intent)
+//            }
+            repo?.let {
+                Log.d("MyTAG", "repo = $repo")
             }
         }
-    }
+    }*/
 
     fun bind(repo: CharacterEntity?) {
         if (repo == null) {
@@ -88,10 +91,13 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
                 .load(repo.image)
                 .circleCrop()
                 .placeholder(R.drawable.ic_characters)
-                .error(R.drawable.ic_eye)
+                .error(R.drawable.ic_error_load)
                 .into(image)
         } else {
             image.setImageResource(R.drawable.ic_characters)
+        }
+        itemView.setOnClickListener {
+            Log.d("MyTAG", "itemView clicked")
         }
     }
 

@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import com.example.android.codelabs.paging.model.character.CharacterDto
+import com.example.android.codelabs.paging.model.character.CharacterEntity
 
 typealias ResultListener<T> = (T) -> Unit
 
@@ -16,7 +17,7 @@ interface Navigator {
 
     fun showCharactersScreen()
 
-    fun showCharactersScreenDetail(character: CharacterDto)
+    fun showCharactersScreenDetail(character: CharacterEntity)
 
     fun showLocationsScreen()
 

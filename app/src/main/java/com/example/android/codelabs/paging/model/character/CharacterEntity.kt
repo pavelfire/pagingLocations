@@ -1,10 +1,13 @@
 package com.example.android.codelabs.paging.model.character
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 const val CHARACTERS_TABLE_NAME = "characters"
 
+@Parcelize
 @Entity(tableName = CHARACTERS_TABLE_NAME)
 data class CharacterEntity(
     val created: String,
@@ -20,7 +23,7 @@ data class CharacterEntity(
     val status: String,
     val type: String,
     val url: String
-)
+): Parcelable
 
 fun CharacterEntity.mapToDto(): CharacterDto {
     return CharacterDto(
@@ -38,3 +41,5 @@ fun CharacterEntity.mapToDto(): CharacterDto {
         url = url
     )
 }
+
+

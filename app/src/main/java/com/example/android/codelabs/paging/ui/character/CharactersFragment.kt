@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.ui.character
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -19,22 +20,37 @@ import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.contract.HasCustomTitle
 import com.example.android.codelabs.paging.databinding.ActivityLocationsBinding
 import com.example.android.codelabs.paging.databinding.FragmentCharactersBinding
+import com.example.android.codelabs.paging.model.character.CharacterEntity
 import com.example.android.codelabs.paging.ui.FilterDialogFragment
 import com.example.android.codelabs.paging.ui.location.LocationsActivity
 import com.example.android.codelabs.paging.ui.repo.ReposLoadStateAdapter
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+
 class CharactersFragment: Fragment(), HasCustomTitle{
 
     private lateinit var binding: FragmentCharactersBinding
+
+    var result: String? = null
 
     private fun FragmentCharactersBinding.bindStateLocat(
         uiState: StateFlow<UiStateCharact>,
         pagingData: Flow<PagingData<UiModelCharact>>,
         uiActions: (UiActionCharact) -> Unit
     ) {
-        val repoAdapter = CharactersAdapter()
+        val repoAdapter = CharactersAdapter(
+            object : CharactersAdapter.OnCharacterListener {
+                override fun onCharacterClick(character: CharacterEntity) {
+                    requireActivity().supportFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.fragment_container, CharacterDetailFragment.newInstance(character)
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+        )
         val header = ReposLoadStateAdapter { repoAdapter.retry() }
         list.adapter = repoAdapter.withLoadStateHeaderAndFooter(
             header = header,
@@ -206,6 +222,17 @@ class CharactersFragment: Fragment(), HasCustomTitle{
         }
             .distinctUntilChanged()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        parentFragmentManager.setFragmentResultListener(
+            "key", this
+        ) { key, bundle ->
+            // Здесь можно передать любой тип, поддерживаемый Bundle-ом
+            result = bundle.getString("bundleKey")
+        }
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -239,6 +266,12 @@ class CharactersFragment: Fragment(), HasCustomTitle{
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+//        Toast.makeText(requireContext(), "result = $result", Toast.LENGTH_LONG).show()
+        Log.d("Tag", "result = $result")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

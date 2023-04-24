@@ -5,6 +5,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import com.example.android.codelabs.paging.R
 
@@ -22,6 +23,10 @@ class FilterDialogFragment : DialogFragment() {
                     run {
                         Toast.makeText(requireContext(), "Применить", Toast.LENGTH_LONG)
                             .show()
+
+                        val result = "result"
+                        // Здесь мы можем использовать Kotlin экстеншен функцию из fragment-ktx
+                        parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to result))
                         dialog.cancel()
                     }
                 }

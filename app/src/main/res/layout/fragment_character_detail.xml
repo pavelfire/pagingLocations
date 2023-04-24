@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow_light">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp">
+
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="258dp"
+            android:layout_height="258dp"
+            android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+            android:contentDescription=""
+            android:scaleType="fitStart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:srcCompat="@drawable/splash_rick_morty" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:lines="2"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="name" />
+
+        <TextView
+            android:id="@+id/tvSpecies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:lines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            tools:text="species" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:lines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSpecies"
+            tools:text="status" />
+
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:lines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStatus"
+            tools:text="gender" />
+
+        <TextView
+            android:id="@+id/tvEpisode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvGender"
+            tools:text="gender" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

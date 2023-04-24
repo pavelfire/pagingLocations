@@ -27,4 +27,6 @@
     <color name="searchBackground">#D3DFB3</color>
     <color name="cardBackground">#A6B383</color>
     <color name="separatorText">#FFFFFF</color>
+    <color name="yellow_light">#BAAC55</color>
+    <color name="black">#FF000000</color>
 </resources>
