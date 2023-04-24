@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.android.codelabs.paging.R
+import com.example.android.codelabs.paging.contract.HasCustomTitle
+import com.example.android.codelabs.paging.contract.HasCustomTitleString
 import com.example.android.codelabs.paging.databinding.FragmentCharacterDetailBinding
 import com.example.android.codelabs.paging.model.character.CharacterEntity
 
 private const val ARG_CHARACTER = "ARG_CHARACTER"
 
-class CharacterDetailFragment : Fragment() {
+class CharacterDetailFragment : Fragment(), HasCustomTitleString {
 
     lateinit var binding: FragmentCharacterDetailBinding
 
@@ -63,5 +65,9 @@ class CharacterDetailFragment : Fragment() {
                     putParcelable(ARG_CHARACTER, characterEntity)
                 }
             }
+    }
+
+    override fun getTitleString(): String {
+        return characterEntity?.name.toString()
     }
 }

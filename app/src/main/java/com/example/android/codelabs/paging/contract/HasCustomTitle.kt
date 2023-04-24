@@ -9,3 +9,9 @@ interface HasCustomTitle {
     fun getTitleRes(): Int
 
 }
+
+interface HasCustomTitleString {
+
+    fun getTitleString(): String
+
+}

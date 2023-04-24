@@ -12,10 +12,10 @@ import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.LifecycleOwner
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.contract.HasCustomTitle
+import com.example.android.codelabs.paging.contract.HasCustomTitleString
 import com.example.android.codelabs.paging.contract.Navigator
 import com.example.android.codelabs.paging.contract.ResultListener
 import com.example.android.codelabs.paging.databinding.ActivityMainBinding
-import com.example.android.codelabs.paging.model.character.CharacterDto
 import com.example.android.codelabs.paging.model.character.CharacterEntity
 import com.example.android.codelabs.paging.ui.character.CharacterDetailFragment
 import com.example.android.codelabs.paging.ui.character.CharactersFragment
@@ -25,7 +25,7 @@ private const val LAST_SELECTED_ITEM = "item"
 private const val KEY_RESULT = "KEY_RESULT"
 private var received = 0
 
-class MainActivity: AppCompatActivity(), Navigator {
+class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -114,7 +114,8 @@ class MainActivity: AppCompatActivity(), Navigator {
         back()
         return true
     }
-    private fun back(){
+
+    private fun back() {
         onBackPressedDispatcher.onBackPressed()
         if (currentFragment.toString().take(12) == "CharactersFr") {
             binding.bottomNavigationView.selectedItemId = R.id.characters
@@ -124,10 +125,12 @@ class MainActivity: AppCompatActivity(), Navigator {
     private fun updateUi() {
         val fragment = currentFragment
 
-        if (fragment is HasCustomTitle) {
-            binding.toolbar.title = getString(fragment.getTitleRes())
-        } else {
-            binding.toolbar.title = getString(R.string.app_name)
+        when (fragment) {
+            is HasCustomTitle -> binding.toolbar.title = getString(fragment.getTitleRes())
+
+            is HasCustomTitleString -> binding.toolbar.title = fragment.getTitleString()
+
+            else -> binding.toolbar.title = getString(R.string.app_name)
         }
 
         if (supportFragmentManager.backStackEntryCount > 0) {
