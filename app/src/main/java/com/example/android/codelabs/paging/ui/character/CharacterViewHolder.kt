@@ -50,7 +50,7 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }*/
 
-    fun bind(repo: CharacterEntity?) {
+    fun bind(repo: CharacterEntity?, un: CharactersAdapter.OnCharacterListener) {
         if (repo == null) {
             val resources = itemView.resources
             name.text = resources.getString(R.string.loading)
@@ -58,11 +58,11 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             tvStatus.visibility = View.GONE
             tvGender.text = resources.getString(R.string.unknown)
         } else {
-            showRepoData(repo)
+            showRepoData(repo, un)
         }
     }
 
-    private fun showRepoData(repo: CharacterEntity) {
+    private fun showRepoData(repo: CharacterEntity, un: CharactersAdapter.OnCharacterListener) {
         this.repo = repo
         name.text = repo.name
 
@@ -97,6 +97,7 @@ class CharacterViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             image.setImageResource(R.drawable.ic_characters)
         }
         itemView.setOnClickListener {
+            un.onCharacterClick(repo)
             Log.d("MyTAG", "itemView clicked")
         }
     }

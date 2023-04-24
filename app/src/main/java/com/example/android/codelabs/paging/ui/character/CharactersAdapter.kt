@@ -62,7 +62,7 @@ class CharactersAdapter(
                         actionListener.onCharacterClick(uiModelLocat.locat)
                     }
 
-                    (holder as CharacterViewHolder).bind(uiModelLocat.locat)
+                    (holder as CharacterViewHolder).bind(uiModelLocat.locat, actionListener)
                 }
                 is UiModelCharact.SeparatorItem -> (holder as SeparatorViewHolder).bind(uiModelLocat.description)
                 else -> Exception()
