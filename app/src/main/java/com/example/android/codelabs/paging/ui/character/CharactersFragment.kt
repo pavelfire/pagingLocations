@@ -225,11 +225,12 @@ class CharactersFragment: Fragment(), HasCustomTitle{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        parentFragmentManager.setFragmentResultListener(
+        childFragmentManager.setFragmentResultListener(
             "key", this
         ) { key, bundle ->
             // Здесь можно передать любой тип, поддерживаемый Bundle-ом
             result = bundle.getString("bundleKey")
+            Log.d("Tag", "onCreate result = $result")
         }
 
     }

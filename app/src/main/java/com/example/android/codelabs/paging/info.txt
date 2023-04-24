@@ -21,3 +21,6 @@ internal class MainViewModel(
 // second comment
 
 https://github.com/RikardoMexican/Gallery-pro
+
+передача между фрагментами
+https://habr.com/ru/companies/e-legion/articles/559238/

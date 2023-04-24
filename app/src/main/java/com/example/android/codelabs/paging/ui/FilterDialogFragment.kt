@@ -24,10 +24,10 @@ class FilterDialogFragment : DialogFragment() {
                         Toast.makeText(requireContext(), "Применить", Toast.LENGTH_LONG)
                             .show()
 
-                        val result = "result"
+                        val result = "result======="
                         // Здесь мы можем использовать Kotlin экстеншен функцию из fragment-ktx
                         parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to result))
-                        dialog.cancel()
+                        //dialog.cancel()
                     }
                 }
                 .setNegativeButton("Отменить") { dialog, id ->
