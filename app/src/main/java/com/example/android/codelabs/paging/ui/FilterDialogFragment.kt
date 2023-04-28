@@ -26,7 +26,7 @@ class FilterDialogFragment : DialogFragment() {
 
                         val result = "result======="
                         // Здесь мы можем использовать Kotlin экстеншен функцию из fragment-ktx
-                        parentFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to result))
+                        childFragmentManager.setFragmentResult("requestKey", bundleOf("bundleKey" to result))
                         //dialog.cancel()
                     }
                 }

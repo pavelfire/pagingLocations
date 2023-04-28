@@ -225,13 +225,7 @@ class CharactersFragment: Fragment(), HasCustomTitle{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        childFragmentManager.setFragmentResultListener(
-            "key", this
-        ) { key, bundle ->
-            // Здесь можно передать любой тип, поддерживаемый Bundle-ом
-            result = bundle.getString("bundleKey")
-            Log.d("Tag", "onCreate result = $result")
-        }
+
 
     }
 
@@ -272,7 +266,14 @@ class CharactersFragment: Fragment(), HasCustomTitle{
     override fun onResume() {
         super.onResume()
 //        Toast.makeText(requireContext(), "result = $result", Toast.LENGTH_LONG).show()
-        Log.d("Tag", "result = $result")
+        parentFragmentManager.setFragmentResultListener(
+            "key", this
+        ) { key, bundle ->
+            // Здесь можно передать любой тип, поддерживаемый Bundle-ом
+            result = bundle.getString("bundleKey")
+            Log.d("Tag", "onCreate result = $result")
+        }
+        Log.d("Tag", "on resume result = $result")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
