@@ -20,6 +20,10 @@ object ChickenVoice //Класс с методом main()
 
     @JvmStatic
     fun main(args: Array<String>) {
+
+        val current = DayMyEnum.MONDAY
+        println(current) // MONDAY
+
         mAnotherOpinion = EggVoice() //Создание потока
         println("Спор начат...")
         mAnotherOpinion!!.start() //Запуск потока
