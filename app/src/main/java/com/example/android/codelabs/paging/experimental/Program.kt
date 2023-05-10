@@ -21,8 +21,13 @@ object ChickenVoice //Класс с методом main()
     @JvmStatic
     fun main(args: Array<String>) {
 
-        val current = DayMyEnum.MONDAY
-        println(current) // MONDAY
+//        val current = DayMyEnum.MONDAY
+//        println(current) // MONDAY
+        // git stash  // спрятать изменения в ветке
+        // git stash pop  // вернуть изменения в ветке и удвлить из stash
+        // git stash apply  // вернуть изменения в ветке не удаляя из stash
+        // git stash save "описание для сохранения"
+        // git stash list
 
         mAnotherOpinion = EggVoice() //Создание потока
         println("Спор начат...")
