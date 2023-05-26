@@ -21,6 +21,7 @@ import com.example.android.codelabs.paging.ui.character.CharacterDetailFragment
 import com.example.android.codelabs.paging.ui.character.CharactersFragment
 import com.example.android.codelabs.paging.ui.location.LocationsFragment
 
+
 private const val LAST_SELECTED_ITEM = "item"
 private const val KEY_RESULT = "KEY_RESULT"
 private var received = 0
