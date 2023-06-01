@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.codelabs.paging.Injection
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.contract.HasCustomTitle
+import com.example.android.codelabs.paging.contract.Navigator
 import com.example.android.codelabs.paging.databinding.ActivityLocationsBinding
 import com.example.android.codelabs.paging.databinding.FragmentCharactersBinding
 import com.example.android.codelabs.paging.model.character.CharacterEntity
@@ -225,8 +226,6 @@ class CharactersFragment: Fragment(), HasCustomTitle{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
     }
 
     override fun onCreateView(
@@ -291,6 +290,10 @@ class CharactersFragment: Fragment(), HasCustomTitle{
             }
             R.id.characters -> {
                 Toast.makeText(requireContext(), "Shows characters", Toast.LENGTH_LONG).show()
+                true
+            }
+            R.id.about -> {
+                Toast.makeText(requireContext(), "About", Toast.LENGTH_LONG).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -30,4 +30,5 @@
     <string name="female">female</string>
     <string name="genderless">genderless</string>
     <string name="charac_detail">character detail</string>
+    <string name="about_menu_item_text">About</string>
 </resources>

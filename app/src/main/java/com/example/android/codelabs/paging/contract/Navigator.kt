@@ -23,6 +23,8 @@ interface Navigator {
 
     fun showEpisodesScreen()
 
+    fun showAboutScreen()
+
     fun goBack()
 
     fun goToCharacters()
