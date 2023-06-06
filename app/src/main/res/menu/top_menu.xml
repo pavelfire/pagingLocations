@@ -24,9 +24,14 @@
         android:icon="@drawable/ic_characters"
         android:title="@string/episodes" />
     <item
-        android:id="@+id/about"
+        android:id="@+id/Additions"
         android:enabled="true"
         android:icon="@drawable/ic_characters"
+        android:title="Additions" />
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:icon="@drawable/ic_eye"
         android:title="@string/about_menu_item_text" />
 
 </menu>

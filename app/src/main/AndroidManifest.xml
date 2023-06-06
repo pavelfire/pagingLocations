@@ -38,6 +38,18 @@
         </activity>
 
         <activity
+            android:label="AsyncDepr"
+            android:name=".experimental.in_async_we_trust.AsyncTaskActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+
+        </activity>
+
+        <activity
             android:name="com.example.android.codelabs.paging.ui.location.LocationsActivity"
             android:exported="true">
 

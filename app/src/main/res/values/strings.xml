@@ -31,4 +31,5 @@
     <string name="genderless">genderless</string>
     <string name="charac_detail">character detail</string>
     <string name="about_menu_item_text">About</string>
+    <string name="about">О программе</string>
 </resources>

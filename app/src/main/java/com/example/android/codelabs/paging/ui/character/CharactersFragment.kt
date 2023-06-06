@@ -23,6 +23,7 @@ import com.example.android.codelabs.paging.databinding.ActivityLocationsBinding
 import com.example.android.codelabs.paging.databinding.FragmentCharactersBinding
 import com.example.android.codelabs.paging.model.character.CharacterEntity
 import com.example.android.codelabs.paging.ui.FilterDialogFragment
+import com.example.android.codelabs.paging.ui.about.AboutFragment
 import com.example.android.codelabs.paging.ui.location.LocationsActivity
 import com.example.android.codelabs.paging.ui.repo.ReposLoadStateAdapter
 import kotlinx.coroutines.flow.*
@@ -294,6 +295,14 @@ class CharactersFragment: Fragment(), HasCustomTitle{
             }
             R.id.about -> {
                 Toast.makeText(requireContext(), "About", Toast.LENGTH_LONG).show()
+                val parentFragmentManager = parentFragmentManager
+
+                parentFragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, AboutFragment())
+                    .addToBackStack("myStackAbout")
+                    .setReorderingAllowed(true)
+                    .commit()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
