@@ -17,9 +17,9 @@ interface TrackDao {
     @Query("select * from tracks")
     fun observeAll(): Flow<List<TrackFullDb>>
 
-    @Query("select * from tracks where track_id == :=id")
+    @Query("select * from tracks where track_id == :id")
     fun findTrack(id: String): TrackFullDb
 
     @RawQuery
-    fun findTrack(query: SupportSQLiteQuery): TrackDb
+    fun findTrackRaw(query: SupportSQLiteQuery): TrackDb
 }

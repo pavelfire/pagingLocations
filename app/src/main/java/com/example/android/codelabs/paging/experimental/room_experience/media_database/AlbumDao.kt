@@ -17,9 +17,9 @@ interface AlbumDao {
     @Query("select * from albums")
     fun observeAllAlbums(): Flow<List<AlbumDb>>
 
-    @Query("select * from albums where track_id == :=id")
+    @Query("select * from albums where album_id == :id")
     fun findAlbum(id: String): AlbumDb
 
     @RawQuery
-    fun findAlbums(query: SupportSQLiteQuery): AlbumDb
+    fun findAlbumsRaw(query: SupportSQLiteQuery): AlbumDb
 }

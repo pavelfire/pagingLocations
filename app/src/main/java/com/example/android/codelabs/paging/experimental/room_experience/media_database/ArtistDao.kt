@@ -17,9 +17,9 @@ interface ArtistDao {
     @Query("select * from artists")
     fun observeAllArtist(): Flow<List<ArtistDb>>
 
-    @Query("select * from artists where artist_id == :=id")
+    @Query("select * from artists where artist_id == :id")
     fun findArtist(id: String): ArtistDb
 
     @RawQuery
-    fun findArtist(query: SupportSQLiteQuery): ArtistDb
+    fun findArtistRaw(query: SupportSQLiteQuery): ArtistDb
 }
