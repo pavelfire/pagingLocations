@@ -32,4 +32,6 @@
     <string name="charac_detail">character detail</string>
     <string name="about_menu_item_text">About</string>
     <string name="about">О программе</string>
+    <string name="btn_play">Play</string>
+    <string name="btn_pause">Pause</string>
 </resources>

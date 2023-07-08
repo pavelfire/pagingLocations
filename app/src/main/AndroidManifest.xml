@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2018 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,8 +15,9 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.android.codelabs.paging">
-    <uses-permission android:name="android.permission.INTERNET"/>
+    package="com.example.android.codelabs.paging">
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -28,35 +28,37 @@
 
         <activity
             android:name="com.example.android.codelabs.paging.ui.MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
 
         <activity
             android:name=".experimental.room_experience.media_database.MusicDatabaseActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
 
         <activity
             android:name=".experimental.components.ServiceActivity"
             android:exported="true">
 
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
         </activity>
 
         <activity
-            android:label="AsyncDepr"
             android:name=".experimental.in_async_we_trust.AsyncTaskActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:label="AsyncDepr" />
 
         <activity
             android:name="com.example.android.codelabs.paging.ui.location.LocationsActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
+
+        <service
+            android:name=".experimental.components.PlayerService"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>
