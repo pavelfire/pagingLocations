@@ -34,4 +34,7 @@
     <string name="about">О программе</string>
     <string name="btn_play">Play</string>
     <string name="btn_pause">Pause</string>
+
+    <string name="sbtl">Height, m</string>
+    <string name="tl">354.4</string>
 </resources>
