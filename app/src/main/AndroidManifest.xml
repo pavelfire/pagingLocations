@@ -28,7 +28,12 @@
 
         <activity
             android:name="com.example.android.codelabs.paging.ui.MainActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".experimental.room_experience.media_database.MusicDatabaseActivity"
@@ -37,11 +42,6 @@
         <activity
             android:name=".experimental.components.ServiceActivity"
             android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
 

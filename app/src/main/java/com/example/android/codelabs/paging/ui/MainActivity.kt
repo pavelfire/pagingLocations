@@ -16,6 +16,8 @@ import com.example.android.codelabs.paging.contract.HasCustomTitleString
 import com.example.android.codelabs.paging.contract.Navigator
 import com.example.android.codelabs.paging.contract.ResultListener
 import com.example.android.codelabs.paging.databinding.ActivityMainBinding
+import com.example.android.codelabs.paging.experimental.observers.Man
+import com.example.android.codelabs.paging.experimental.observers.WeatherStation
 import com.example.android.codelabs.paging.model.character.CharacterEntity
 import com.example.android.codelabs.paging.ui.character.CharacterDetailFragment
 import com.example.android.codelabs.paging.ui.character.CharactersFragment
@@ -75,6 +77,18 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
+
+        observerPatternExample()
+    }
+
+    private fun observerPatternExample() {
+        val weatherStation = WeatherStation()
+        weatherStation.addMan(Man("Aleks"))
+        weatherStation.addMan(Man("Ivan"))
+        weatherStation.addMan(Man("Tony"))
+        weatherStation.addMan(Man("Manuella"))
+
+        weatherStation.updateWeather()
     }
 
     private fun replaceFragment(fragment: Fragment) {
