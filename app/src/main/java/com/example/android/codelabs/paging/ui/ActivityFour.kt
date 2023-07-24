@@ -5,14 +5,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.android.codelabs.paging.databinding.ActivityTwoBinding
+import com.example.android.codelabs.paging.databinding.ActivityThreeBinding
 import kotlin.random.Random
 
-class ActivityTwo : AppCompatActivity() {
+class ActivityFour : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityTwoBinding.inflate(layoutInflater)
+        val binding = ActivityThreeBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
@@ -21,7 +21,7 @@ class ActivityTwo : AppCompatActivity() {
         var color = Random(255)
         binding.linLayout.setBackgroundColor(
             Color.argb(
-            255, color.nextInt(), color.nextInt(), color.nextInt()))
+            255, Random.nextInt(255), Random.nextInt(255), Random.nextInt(255)))
         binding.btnActOne.setOnClickListener {
             val intent = Intent(this, ActivityOne::class.java)
             startActivity(intent)
@@ -42,6 +42,11 @@ class ActivityTwo : AppCompatActivity() {
             val intent = Intent(this, ActivityFive::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.d(Companion.TAG, "onNewIntent: ")
     }
 
     override fun onStart() {
@@ -80,6 +85,6 @@ class ActivityTwo : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "ActivityTwo"
+        private const val TAG = "ActivityFour"
     }
 }

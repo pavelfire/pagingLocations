@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lin_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,9 +19,38 @@
         android:visibility="visible" />
 
     <Button
+        android:id="@+id/btn_act_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Activity One" />
+
+    <Button
         android:id="@+id/btn_act_two"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="14dp"
         android:text="Activity Two" />
+
+    <Button
+        android:id="@+id/btn_act_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Activity Three Single Task" />
+
+    <Button
+        android:id="@+id/btn_act_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Activity Four Single Instance" />
+
+    <Button
+        android:id="@+id/btn_act_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Activity Five Single Top" />
 
 </LinearLayout>

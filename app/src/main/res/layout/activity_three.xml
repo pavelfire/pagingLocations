@@ -8,14 +8,13 @@
     android:orientation="vertical"
     tools:context=".ui.ActivityOne">
 
-
     <TextView
         android:id="@+id/emptyList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="14dp"
         android:gravity="center"
-        android:text="Activity Two"
+        android:text="Activity Three Single Task"
         android:textSize="@dimen/repo_name_size"
         android:visibility="visible" />
 
