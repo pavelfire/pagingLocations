@@ -16,5 +16,7 @@
 
 <resources>
     <string name="app_name">ActIntents</string>
+    <string name="channel_name">My RSS Pull channel</string>
+    <string name="channel_description">this is description rss pull channel</string>
 
 </resources>

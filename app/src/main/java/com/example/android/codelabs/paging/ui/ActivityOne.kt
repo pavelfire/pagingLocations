@@ -2,8 +2,10 @@ package com.example.android.codelabs.paging.ui
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.codelabs.paging.databinding.ActivityOneBinding
 import kotlin.random.Random
@@ -40,6 +42,18 @@ class ActivityOne : AppCompatActivity() {
         binding.btnActFive.setOnClickListener {
             val intent = Intent(this, ActivityFive::class.java)
             startActivity(intent)
+        }
+        binding.btnServiceStart.setOnClickListener {
+            val intent = Intent(this, RSSPullService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(intent)
+            }else{
+                startService(intent)
+            }
+        }
+        binding.btnServiceStop.setOnClickListener {
+            val intent = Intent(this, RSSPullService::class.java)
+            stopService(intent)
         }
     }
 

@@ -53,4 +53,18 @@
         android:layout_margin="14dp"
         android:text="Activity Five Single Top" />
 
+    <Button
+        android:id="@+id/btn_service_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Start service" />
+
+    <Button
+        android:id="@+id/btn_service_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Stop service" />
+
 </LinearLayout>
