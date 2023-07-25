@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.codelabs.paging.databinding.ActivityOneBinding
 import kotlin.random.Random
