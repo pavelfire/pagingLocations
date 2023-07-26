@@ -17,14 +17,14 @@ class ActivityOne : AppCompatActivity() {
         val binding = ActivityOneBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         Log.d(TAG, "onCreate: ")
         binding.emptyList.text = TAG
+
         val color = Random(255)
         binding.linLayout.setBackgroundColor(Color.argb(
             255, color.nextInt(255), color.nextInt(), color.nextInt()))
         binding.btnActOne.setOnClickListener {
-            val intent = Intent(this, ActivityOne::class.java)
+            val intent = Intent(baseContext, ActivityOne::class.java)
             startActivity(intent)
         }
         binding.btnActTwo.setOnClickListener {
@@ -56,6 +56,38 @@ class ActivityOne : AppCompatActivity() {
             stopService(intent)
         }
     }
+
+    inline fun <reified T> filterList(list: List<Any>, noinline action: ()-> Unit): List<T> {
+        val resultList = mutableListOf<T>()
+        for (element in list) {
+            if (element is T) {
+                resultList.add(element)
+            } else {
+                saveResult(action)
+            }
+        }
+        return resultList
+    }
+
+    fun saveResult(action: ()-> Unit){
+        action.invoke()
+    }
+
+//    fun <T> filterList(list: List<Any>, action: ()-> Unit): List<T> {
+//        val resultList = mutableListOf<T>()
+//        for (element in list) {
+//            if (element is T) {
+//                resultList.add(element)
+//            } else {
+//                saveResult(action)
+//            }
+//        }
+//        return resultList
+//    }
+//
+//    fun saveResult(action: ()-> Unit){
+//        action.invoke()
+//    }
 
     override fun onStart() {
         super.onStart()

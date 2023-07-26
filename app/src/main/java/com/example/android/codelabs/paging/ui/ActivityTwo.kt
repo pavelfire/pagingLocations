@@ -45,6 +45,26 @@ class ActivityTwo : AppCompatActivity() {
         }
     }
 
+    // тут поэкспериментируйте с noinline и crossinline и посмотрите, что будет выводиться в логи
+    fun doSmth(action: () -> Unit) {
+        println("start")
+        action.invoke()
+        println("finish doSmth")
+    }
+
+    fun doWork(){
+        doSmth {
+            println("action")
+            return@doSmth
+        }
+        println("finish doWork")
+    }
+
+    fun main() {
+        doWork()
+
+    }
+
     override fun onStart() {
         super.onStart()
         Log.d(Companion.TAG, "onStart: ")
