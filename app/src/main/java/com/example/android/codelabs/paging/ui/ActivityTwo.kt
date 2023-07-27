@@ -17,8 +17,11 @@ class ActivityTwo : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        Log.d(Companion.TAG, "onCreate: ")
+        Log.d(TAG, "onCreate: ")
+//        finish()
+//        Log.d(TAG, "finish")
         binding.emptyList.text = TAG
+
         var color = Random(255)
         binding.linLayout.setBackgroundColor(
             Color.argb(
