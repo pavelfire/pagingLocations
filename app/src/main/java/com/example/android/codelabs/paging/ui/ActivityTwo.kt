@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.codelabs.paging.databinding.ActivityTwoBinding
 import kotlin.random.Random
@@ -19,13 +20,19 @@ class ActivityTwo : AppCompatActivity() {
 
         Log.d(TAG, "onCreate: ")
 //        finish()
-//        Log.d(TAG, "finish")
+//        Log.d(TAG, "finish after finish()")
+//        Toast.makeText(
+//            this, "finish after finish() in onCreate method", Toast.LENGTH_SHORT
+//        ).show()
+
         binding.emptyList.text = TAG
 
         var color = Random(255)
         binding.linLayout.setBackgroundColor(
             Color.argb(
-            255, color.nextInt(), color.nextInt(), color.nextInt()))
+                255, color.nextInt(), color.nextInt(), color.nextInt()
+            )
+        )
         binding.btnActOne.setOnClickListener {
             val intent = Intent(this, ActivityOne::class.java)
             startActivity(intent)
@@ -55,7 +62,7 @@ class ActivityTwo : AppCompatActivity() {
         println("finish doSmth")
     }
 
-    fun doWork(){
+    fun doWork() {
         doSmth {
             println("action")
             return@doSmth
@@ -109,8 +116,7 @@ class ActivityTwo : AppCompatActivity() {
     }
 
     override fun onRestoreInstanceState(
-        savedInstanceState: Bundle?,
-        persistentState: PersistableBundle?
+        savedInstanceState: Bundle?, persistentState: PersistableBundle?
     ) {
         super.onRestoreInstanceState(savedInstanceState, persistentState)
         Log.d(TAG, "onRestoreInstanceState: ")
