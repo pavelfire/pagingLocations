@@ -54,6 +54,13 @@
         android:text="Activity Five Single Top" />
 
     <Button
+        android:id="@+id/btn_act_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="Act Six SingleTask taskAffinity my" />
+
+    <Button
         android:id="@+id/btn_service_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

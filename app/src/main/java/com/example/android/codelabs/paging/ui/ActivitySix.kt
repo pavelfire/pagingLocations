@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.android.codelabs.paging.databinding.ActivityOneBinding
 import kotlin.random.Random
 
-class ActivityOne : AppCompatActivity() {
+class ActivitySix : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class ActivityOne : AppCompatActivity() {
         binding.linLayout.setBackgroundColor(Color.argb(
             255, color.nextInt(255), color.nextInt(), color.nextInt()))
         binding.btnActOne.setOnClickListener {
-            val intent = Intent(baseContext, ActivityOne::class.java)
+            val intent = Intent(baseContext, ActivitySix::class.java)
             startActivity(intent)
         }
         binding.btnActTwo.setOnClickListener {
@@ -41,11 +41,6 @@ class ActivityOne : AppCompatActivity() {
         }
         binding.btnActFive.setOnClickListener {
             val intent = Intent(this, ActivityFive::class.java)
-            startActivity(intent)
-        }
-        binding.btnActSix.setOnClickListener {
-            val intent = Intent(this, ActivitySix::class.java)
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
         binding.btnServiceStart.setOnClickListener {
@@ -143,6 +138,6 @@ class ActivityOne : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "ActivityOne"
+        private const val TAG = "ActivitySix"
     }
 }

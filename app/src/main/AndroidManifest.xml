@@ -23,25 +23,29 @@
         <activity
             android:name="com.example.android.codelabs.paging.ui.ActivityTwo"
             android:exported="false">
-
         </activity>
         <activity
             android:name="com.example.android.codelabs.paging.ui.ActivityThree"
             android:launchMode="singleTask"
             android:exported="true">
-
         </activity>
         <activity
             android:name="com.example.android.codelabs.paging.ui.ActivityFour"
             android:launchMode="singleInstance"
             android:exported="true">
-
         </activity>
         <activity
             android:name="com.example.android.codelabs.paging.ui.ActivityFive"
             android:launchMode="singleTop"
             android:exported="true">
-
+        </activity>
+        <activity
+            android:name="com.example.android.codelabs.paging.ui.ActivitySix"
+            android:label="My pack new Label"
+            android:launchMode="singleTask"
+            android:allowTaskReparenting="true"
+            android:taskAffinity="com.example.feature_payment.payments.payment_by_bank_details"
+            android:exported="true">
         </activity>
 
         <service
