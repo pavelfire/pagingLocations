@@ -6,6 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.android.codelabs.paging.databinding.ActivityThreeBinding
+import kotlinx.coroutines.internal.synchronized
+import java.io.Externalizable
+import java.io.ObjectInput
+import java.io.ObjectOutput
 import kotlin.random.Random
 
 class ActivityFive : AppCompatActivity() {
@@ -88,4 +92,15 @@ class ActivityFive : AppCompatActivity() {
     companion object {
         private const val TAG = "ActivityFive"
     }
+}
+
+class ExtraMy: Externalizable{
+    override fun writeExternal(p0: ObjectOutput?) {
+
+    }
+
+    override fun readExternal(p0: ObjectInput?) {
+
+    }
+
 }
