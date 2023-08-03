@@ -19,11 +19,6 @@ class ActivityTwo : AppCompatActivity() {
         setContentView(view)
 
         Log.d(TAG, "onCreate: ")
-//        finish()
-//        Log.d(TAG, "finish after finish()")
-//        Toast.makeText(
-//            this, "finish after finish() in onCreate method", Toast.LENGTH_SHORT
-//        ).show()
 
         binding.emptyList.text = TAG
 
@@ -78,6 +73,11 @@ class ActivityTwo : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d(Companion.TAG, "onStart: ")
+//        finish()
+//        Log.d(TAG, "finish after finish()")
+//        Toast.makeText(
+//            this, "finish after finish() in onCreate method", Toast.LENGTH_SHORT
+//        ).show()
     }
 
     override fun onResume() {
